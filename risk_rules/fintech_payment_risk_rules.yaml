@@ -1,0 +1,102 @@
+rules:
+  - id: duplicate_payment_request
+    name: Duplicate Payment Request
+    keywords:
+      - payment request
+      - timeout
+      - callback
+      - retry
+      - duplicate
+      - reserve
+    risk_level: high
+    impacted_areas:
+      - idempotency
+      - balance deduction
+      - transaction record
+      - external provider callback
+      - reconciliation
+    suggested_tests:
+      - Submit the same payment request twice.
+      - Submit the same transaction ID with different amounts.
+      - Simulate provider timeout followed by delayed success callback.
+      - Simulate duplicated callback from external provider.
+      - Verify that user balance is deducted only once.
+    monitoring_signals:
+      - Duplicate transaction ID
+      - Multiple transaction records with same request ID
+      - Abnormal payment / confirmation mismatch
+      - Callback retry spike
+
+  - id: user_eligibility_status_consistency
+    name: User Eligibility Status Consistency
+    keywords:
+      - eligibility
+      - compliance
+      - verification
+      - frontend
+      - backend
+      - status
+    risk_level: high
+    impacted_areas:
+      - user eligibility
+      - payment feature enablement
+      - frontend/backend consistency
+      - compliance state
+    suggested_tests:
+      - Enable payment feature when user eligibility is approved.
+      - Enable payment feature when user eligibility is pending.
+      - Change backend eligibility status and verify frontend display.
+      - Verify payment behavior after eligibility status changes.
+    monitoring_signals:
+      - Eligibility status mismatch
+      - Payment enablement failures by eligibility state
+      - Inconsistent frontend/backend status
+
+  - id: reward_idempotency
+    name: Reward Idempotency
+    keywords:
+      - reward
+      - campaign
+      - benefit
+      - completed
+      - duplicate
+      - transaction
+    risk_level: medium
+    impacted_areas:
+      - reward calculation
+      - campaign eligibility
+      - compensation
+      - user balance
+    suggested_tests:
+      - Complete an eligible transaction and verify reward is issued once.
+      - Retry the same transaction completion event.
+      - Verify campaign rule boundary values.
+      - Verify non-eligible transaction type does not trigger reward.
+    monitoring_signals:
+      - Duplicate reward record
+      - Abnormal reward amount
+      - Reward issued for ineligible transaction
+
+  - id: async_confirmation_delay
+    name: Async Confirmation Delay
+    keywords:
+      - confirmation
+      - delayed
+      - completed
+      - reconciliation
+      - asynchronous
+    risk_level: high
+    impacted_areas:
+      - transaction status
+      - provider confirmation
+      - reconciliation
+      - user-facing payment status
+    suggested_tests:
+      - Simulate payment request success but provider confirmation delayed.
+      - Simulate provider confirmation arriving after transaction completion.
+      - Verify reconciliation identifies request/confirmation mismatch.
+      - Verify frontend transaction status during confirmation delay.
+    monitoring_signals:
+      - Long pending confirmation
+      - Payment/confirmation amount mismatch
+      - Missing provider confirmation record
