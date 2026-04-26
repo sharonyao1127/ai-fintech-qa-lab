@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: Fintech Payment API Example
+  version: 0.1.0
+  description: Minimal OpenAPI example for payment QA and risk coverage mapping.
+
+servers:
+  - url: https://api.example.com
+
+paths:
+  /payment-feature/enable:
+    post:
+      summary: Enable payment feature for a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user_id, enabled]
+              properties:
+                user_id:
+                  type: string
+                enabled:
+                  type: boolean
+      responses:
+        '200':
+          description: Feature status updated
+
+  /payments/process:
+    post:
+      summary: Process a payment request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [request_id, user_id, amount]
+              properties:
+                request_id:
+                  type: string
+                user_id:
+                  type: string
+                amount:
+                  type: number
+      responses:
+        '200':
+          description: Payment accepted
+
+  /balance/{user_id}:
+    get:
+      summary: Query user balance
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current user balance
+
+  /provider/callback:
+    post:
+      summary: Receive external provider callback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [request_id, provider_status]
+              properties:
+                request_id:
+                  type: string
+                provider_status:
+                  type: string
+      responses:
+        '200':
+          description: Callback received

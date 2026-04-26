@@ -31,8 +31,10 @@ This repository contains only generalized and sanitized scenarios. It does not i
 ```text
 ai-fintech-qa-lab/
 ├── examples/
-│   └── requirements/
-│       └── digital_payment_flow.md
+│   ├── requirements/
+│   │   └── digital_payment_flow.md
+│   └── openapi/
+│       └── payment_api.yaml
 ├── risk_rules/
 │   └── fintech_payment_risk_rules.yaml
 ├── src/
@@ -48,10 +50,13 @@ ai-fintech-qa-lab/
 │   └── test_duplicate_payment_request.py
 ├── outputs/
 │   ├── generated_test_cases.md
-│   └── quality_report.md
+│   ├── quality_report.md
+│   └── coverage_matrix.md
 ├── docs/
 │   ├── architecture.md
-│   └── roadmap.md
+│   ├── roadmap.md
+│   ├── risk-model.md
+│   └── how-to-extend-rules.md
 └── .github/
     └── workflows/
         └── test.yml
@@ -94,6 +99,7 @@ Then generates:
 
 - `outputs/generated_test_cases.md`
 - `outputs/quality_report.md`
+- `outputs/coverage_matrix.md`
 
 ## Tech Stack
 
@@ -101,7 +107,7 @@ Python · Pytest · FastAPI · YAML · GitHub Actions · Risk-based Testing · A
 
 ## Current Status
 
-MVP version. The current implementation uses structured risk rules and keyword matching. Future versions can integrate LLM APIs for requirement understanding, test generation, and evaluation.
+MVP version. The current implementation uses structured risk rules and keyword matching. Future versions can integrate LLM APIs for requirement understanding, test generation, and evaluation. Future version can connect generated risk cases with OpenAPI contract coverage.
 
 ## Demo Output
 
@@ -116,6 +122,7 @@ The project generates:
 
 - `outputs/generated_test_cases.md`
 - `outputs/quality_report.md`
+- `outputs/coverage_matrix.md`
 
 Example risk areas:
 
