@@ -102,3 +102,54 @@ Python · Pytest · FastAPI · YAML · GitHub Actions · Risk-based Testing · A
 ## Current Status
 
 MVP version. The current implementation uses structured risk rules and keyword matching. Future versions can integrate LLM APIs for requirement understanding, test generation, and evaluation.
+
+## Demo Output
+
+After running:
+
+```bash
+python3 -m src.main
+pytest -q
+```
+
+The project generates:
+
+- `outputs/generated_test_cases.md`
+- `outputs/quality_report.md`
+
+Example risk areas:
+
+```text
+- Duplicate Payment Request
+- User Eligibility Status Consistency
+- Reward Idempotency
+- Async Confirmation Delay
+```
+
+Example test ideas:
+
+```text
+- Submit the same payment request twice.
+- Simulate provider timeout followed by delayed success callback.
+- Verify that user balance is deducted only once.
+- Verify frontend/backend status consistency.
+```
+
+## Key Capabilities
+
+- Converts generic payment requirements into risk-based test cases.
+- Uses structured risk rules to identify high-risk payment scenarios.
+- Generates quality reports with regression scope and monitoring signals.
+- Provides a mock payment service for executable API testing.
+- Verifies duplicate request handling with pytest.
+- Uses GitHub Actions to run report generation and tests automatically.
+
+## Interview Talking Points
+
+I built this project to show how QA experience can be transformed into reusable testing assets.
+
+The project takes a generic fintech payment requirement and structured risk rules as input, then generates risk-based test cases and a quality report. It also includes a mock payment service and pytest tests to prove that the testing ideas can become executable checks.
+
+The key idea is not to replace QA judgment with AI, but to make QA judgment more structured, reusable, and automation-friendly.
+
+This project demonstrates my experience in payment reliability, risk-based testing, API automation, idempotency, asynchronous processing, and AI-assisted quality engineering.
